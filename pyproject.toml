@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "fastapi-healthcheck"
-version = "0.2.13"
+version = "1.0.1"
 description = "Base package to handle health checks with FastAPI."
 authors = []
 readme = "README.md"
