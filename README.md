@@ -46,12 +46,18 @@ When you request your health check, it will go and check all the entries that ha
             "alias":"postgres db",
             "status":"Healthy",
             "timeTaken":"0:00:00.009619",
+            "properties": {
+                "numEntries": 1000,
+            },
             "tags":["postgres","db","sql01"]
         },
         {
             "alias":"reddit",
             "status":"Unhealthy",
             "timeTaken":"0:00:00.661716",
+            "properties": {
+                "numPosts": 10,
+            },
             "tags":["external","reddit","aww"]
         }
     ]

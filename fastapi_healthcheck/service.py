@@ -56,8 +56,10 @@ class HealthCheckFactory:
             # Generate the model
             if not hasattr(i, "_tags"):
                 i._tags = list()
+            if not hasattr(i, "_properties"):
+                i._properties = dict()
             item = HealthCheckEntityModel(
-                alias=i._alias, tags=i._tags if i._tags else []
+                alias=i._alias, tags=i._tags if i._tags else [], properties=i._properties
             )
 
             # Track how long the entity took to respond
@@ -112,6 +114,9 @@ class HealthCheckBase:
 
     def getTags(self) -> List[str]:
         return self._tags
+    
+    def getProperties(self) -> dict:
+        return self._properties
 
     def getAlias(self) -> str:
         return self._alias
