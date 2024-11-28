@@ -3,7 +3,8 @@ from .model import HealthCheckModel, HealthCheckEntityModel
 from .enum import HealthCheckStatusEnum
 from typing import List
 from datetime import datetime
-
+import os
+import socket
 
 class HealthCheckFactory:
     _healthItems: List[HealthCheckInterface]
@@ -43,6 +44,8 @@ class HealthCheckFactory:
         model.entities = l
         model.status = model.status.value
         model.totalTimeTaken = str(model.totalTimeTaken)
+        model.host = model.host
+        model.image = dict(model.image)
 
         return dict(model)
 
@@ -70,6 +73,20 @@ class HealthCheckFactory:
             self._health.entities.append(item)
         self.__stopTimer__(False)
         self._health.totalTimeTaken = self.__getTimeTaken__(False)
+
+        # extended with own properties
+        self._health.host = socket.gethostname()
+        
+        version = os.getenv('VERSION', '?')
+        build_number = os.getenv('BUILD_NO', '?')
+        branch = os.getenv('BRANCH', '?')
+        git_hash = os.getenv('GIT_HASH', '?')
+        self._health.image = {
+            'version': version,
+            'buildNumber': build_number,
+            'branch': branch,
+            'gitHash': git_hash,
+        }
 
         self._health = self.__dumpModel__(self._health)
 

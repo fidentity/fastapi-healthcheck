@@ -1,10 +1,10 @@
 [tool.poetry]
-name = "fastapi_healthcheck"
+name = "fastapi-healthcheck"
 version = "0.2.13"
 description = "Base package to handle health checks with FastAPI."
-authors = ["James Tombleson <luther38@gmail.com>"]
+authors = []
 readme = "README.md"
-repository = "https://github.com/jtom38/fastapi_healthcheck"
+repository = "https://github.com/fidentity/fastapi-healthcheck"
 classifiers = [
     "Development Status :: 3 - Alpha",
     "Framework :: FastAPI"

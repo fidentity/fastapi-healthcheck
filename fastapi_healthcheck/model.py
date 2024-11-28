@@ -15,4 +15,6 @@ class HealthCheckEntityModel(BaseModel):
 class HealthCheckModel(BaseModel):
     status: Union[HealthCheckStatusEnum, str] = HealthCheckStatusEnum.HEALTHY
     totalTimeTaken: Union[Optional[datetime], str] = ""
+    host: str = ""
+    image: dict = {"version": "", "version": "", "buildNumber": "", "branch": "", "hash": ""}
     entities: List[HealthCheckEntityModel] = list()
