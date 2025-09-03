@@ -50,7 +50,7 @@ class HealthCheckFactory:
         return dict(model)
 
     def check(self) -> HealthCheckModel:
-        self._health = HealthCheckModel()
+        health = HealthCheckModel()
         self.__startTimer__(False)
         for i in self._healthItems:
             # Generate the model
@@ -70,29 +70,29 @@ class HealthCheckFactory:
 
             # if we have one dependency unhealthy, the service in unhealthy
             if item.status == HealthCheckStatusEnum.UNHEALTHY:
-                self._health.status = HealthCheckStatusEnum.UNHEALTHY
+                health.status = HealthCheckStatusEnum.UNHEALTHY
 
-            self._health.entities.append(item)
+            health.entities.append(item)
         self.__stopTimer__(False)
-        self._health.totalTimeTaken = self.__getTimeTaken__(False)
+        health.totalTimeTaken = self.__getTimeTaken__(False)
 
         # extended with own properties
-        self._health.host = socket.gethostname()
+        health.host = socket.gethostname()
         
         version = os.getenv('VERSION', '?')
         build_number = os.getenv('BUILD_NO', '?')
         branch = os.getenv('BRANCH', '?')
         git_hash = os.getenv('GIT_HASH', '?')
-        self._health.image = {
+        health.image = {
             'version': version,
             'buildNumber': build_number,
             'branch': branch,
             'gitHash': git_hash,
         }
 
-        self._health = self.__dumpModel__(self._health)
+        health = self.__dumpModel__(health)
 
-        return self._health
+        return health
 
 
 class HealthCheckBase:
