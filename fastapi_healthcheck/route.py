@@ -1,8 +1,10 @@
 from typing import Callable
+from cachetools import TTLCache
 from starlette.responses import JSONResponse
 from .service import HealthCheckFactory
 from .enum import HealthCheckStatusEnum
 
+cache = TTLCache(maxsize=1, ttl=10)
 
 def healthCheckRoute(factory: HealthCheckFactory) -> Callable:
     """
@@ -15,7 +17,10 @@ def healthCheckRoute(factory: HealthCheckFactory) -> Callable:
     _factory = factory
 
     def endpoint() -> JSONResponse:
-        res = _factory.check()    
+        if "health" in cache:
+            return JSONResponse(content=cache["health"], status_code=200)
+        res = _factory.check()
+        cache["health"] = res
         if res['status'] == HealthCheckStatusEnum.UNHEALTHY.value:
             return JSONResponse(content=res, status_code=500)
         return JSONResponse(content=res, status_code=200)
