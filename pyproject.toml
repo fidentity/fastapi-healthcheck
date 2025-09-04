@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "fastapi-healthcheck"
-version = "1.0.4"
+version = "1.0.5"
 description = "Base package to handle health checks with FastAPI."
 authors = []
 readme = "README.md"
@@ -15,6 +15,7 @@ license = "MIT"
 python = "^3.9"
 fastapi = "^0"
 pydantic = "^2.5.2"
+cachetools = "^6.2.0"
 
 [tool.poetry.dev-dependencies]
 
