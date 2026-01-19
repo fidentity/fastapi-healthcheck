@@ -17,13 +17,20 @@ def healthCheckRoute(factory: HealthCheckFactory) -> Callable:
     _factory = factory
 
     def endpoint() -> JSONResponse:
-        if "health" in cache:
-            return JSONResponse(content=cache["health"], status_code=200)
+        # Returns None if key is missing or expired.
+        cached_res = cache.get("health")
+        
+        if cached_res is not None:
+            return JSONResponse(content=cached_res, status_code=200)
+            
+        # cache was empty or expired. Regenerate.
         res = _factory.check()
         cache["health"] = res
+        
         if res['status'] == HealthCheckStatusEnum.UNHEALTHY.value:
             return JSONResponse(content=res, status_code=500)
         return JSONResponse(content=res, status_code=200)
 
     return endpoint
 
+   

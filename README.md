@@ -4,6 +4,15 @@ Easy to use health check for your FastAPI.  This is the root module that will le
 
 This module does not contain any service checkers, but you can easily add them.  The other modules are not in this root module due to different dependencies required for each one.  This is made so you only bring in the packages that you need to not add extra packages.
 
+
+## Build
+No need to build, simply increase the version in pyproject.toml and reference the new version from github: 
+
+from dockerfile:
+fastapi-healthcheck @ https://github.com/.../fastapi-healthcheck/archive/refs/tags/v1.0.x.tar.gz
+
+or install with pip (gh token required)
+
 ## Install
 
 `pip install fastapi-healthcheck` or `poetry add fastapi-healthcheck`
@@ -63,14 +72,6 @@ When you request your health check, it will go and check all the entries that ha
     ]
 }
 ```
-
-## Available Modules
-
-* [fastapi_healthcheck_sqlalchemy](https://github.com/jtom38/fastapi_healthcheck_sqlalchemy)
-* [fastapi_healthcheck_uri](https://github.com/jtom38/fastapi_healthcheck_uri)
-* [fastapi_healthcheck_mongodb](https://github.com/anesmemisevic/fastapi_healthcheck_mongodb)
-
-If you have made a public service module and want to see it on this list, please open a new issue so we can add it to the list.
 
 ## Writing a custom module
 
